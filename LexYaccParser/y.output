@@ -1,0 +1,3170 @@
+Useless nonterminals
+
+   arithmetic_bin_sign
+
+
+Terminals which are not used
+
+   AUTO
+   CASE
+   CONST
+   DEFAULT
+   DOUBLE
+   ENUM
+   EXTERN
+   GOTO
+   INLINE
+   REGISTER
+   RESTRICT
+   SIGNED
+   SIZEOF
+   STATIC
+   STRUCT
+   SWITCH
+   TYPEDEF
+   UNION
+   UNSIGNED
+   VOLATILE
+   _ALIGNAS
+   _ALIGNOF
+   _ATOMIC
+   _BOOL
+   _COMPLEX
+   _GENERIC
+   _IMAGINARY
+   _NORETURN
+   _STATIC_ASSERT
+   _THREAD_LOCAL
+   LETTICE
+   DLETTICE
+   LB
+   RB
+   DOT
+   TILDA
+   QUESTION
+   COLON
+   DCOLON
+   ARROW
+   DLT
+   DMT
+   COMMENT
+
+
+Useless rules
+
+   98 arithmetic_bin_sign: PLUS
+   99                    | MINUS
+  100                    | DIV
+  101                    | MOD
+  102                    | STAR
+
+
+State 0 conflicts: 1 shift/reduce
+State 3 conflicts: 7 shift/reduce
+State 11 conflicts: 1 shift/reduce, 7 reduce/reduce
+State 18 conflicts: 20 shift/reduce
+State 28 conflicts: 20 shift/reduce
+State 34 conflicts: 21 shift/reduce, 1 reduce/reduce
+State 43 conflicts: 2 shift/reduce
+State 45 conflicts: 20 shift/reduce
+State 67 conflicts: 4 shift/reduce
+State 68 conflicts: 21 shift/reduce
+State 72 conflicts: 20 shift/reduce, 22 reduce/reduce
+State 84 conflicts: 5 shift/reduce, 3 reduce/reduce
+State 86 conflicts: 21 shift/reduce
+State 101 conflicts: 2 shift/reduce
+State 102 conflicts: 2 shift/reduce
+State 103 conflicts: 5 shift/reduce
+State 104 conflicts: 5 shift/reduce
+State 105 conflicts: 5 shift/reduce
+State 107 conflicts: 5 shift/reduce
+State 141 conflicts: 5 shift/reduce
+State 150 conflicts: 5 shift/reduce
+State 152 conflicts: 20 shift/reduce
+State 156 conflicts: 20 shift/reduce
+State 157 conflicts: 21 shift/reduce
+State 161 conflicts: 21 shift/reduce
+State 166 conflicts: 20 shift/reduce
+State 168 conflicts: 21 shift/reduce
+State 172 conflicts: 20 shift/reduce
+State 174 conflicts: 21 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: headers main_function
+
+    2 headers: headers headers
+    3        | INCLUDE
+    4        | /* empty */
+
+    5 main_function: main LP RP LC body return RC
+
+    6 return: RETURN statement SEMICOLON
+    7       | /* empty */
+
+    8 main: datatype IDENTIFIER
+
+    9 datatype: INT
+   10         | LONG
+   11         | FLOAT
+   12         | SHORT
+   13         | VOID
+   14         | CHAR
+
+   15 body: body body
+   16     | op_statement SEMICOLON
+   17     | op_if_else
+   18     | op_loop
+   19     | LC body RC
+   20     | /* empty */
+
+   21 @1: /* empty */
+
+   22 @2: /* empty */
+
+   23 @3: /* empty */
+
+   24 op_if_else: IF @1 LP condition RP @2 LC body RC @3 else
+
+   25 else: ELSE op_if_else
+   26     | ELSE LC body RC
+   27     | /* empty */
+
+   28 condition: statement compare_bin_sign statement
+   29          | condition logic_bin_sign condition
+   30          | logic_unar_sign condition
+   31          | LP condition RP
+
+   32 op_loop: for_loop
+   33        | while_loop
+   34        | do_while_loop
+
+   35 @4: /* empty */
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement RP LC body RC
+
+   37 @5: /* empty */
+
+   38 while_loop: WHILE @5 LP condition RP LC body RC
+
+   39 do_while_loop: DO LC body RC WHILE LP condition RP SEMICOLON
+
+   40 op_statement: datatype IDENTIFIER init
+   41             | IDENTIFIER assign_sign statement
+   42             | arithmetic_unar_sign statement
+   43             | statement arithmetic_unar_sign
+   44             | LP op_statement RP
+   45             | CONTINUE
+   46             | BREAK
+   47             | IDENTIFIER LP STR RP
+   48             | IDENTIFIER LP STR COMMA AND IDENTIFIER RP
+
+   49 init: ASSIGN statement
+   50     | /* empty */
+
+   51 value: NUMBER
+   52      | STR
+   53      | CHARACTER
+
+   54 statement: p_stetament
+   55          | statement PLUS statement
+   56          | statement MINUS statement
+
+   57 p_stetament: value
+   58            | IDENTIFIER
+   59            | p_stetament STAR p_stetament
+   60            | p_stetament DIV p_stetament
+   61            | p_stetament MOD p_stetament
+   62            | arithmetic_unar_sign p_stetament
+   63            | p_stetament arithmetic_unar_sign
+   64            | LP p_stetament RP
+   65            | LP p_stetament PLUS p_stetament RP
+   66            | LP p_stetament MINUS p_stetament RP
+
+   67 arithmetic_unar_sign: ICREMENT
+   68                     | DECREMENT
+
+   69 compare_bin_sign: LE
+   70                 | GE
+   71                 | EQ
+   72                 | NE
+   73                 | DAND
+   74                 | DOR
+   75                 | LT
+   76                 | MT
+
+   77 logic_bin_sign: AND
+   78               | OR
+   79               | XOR
+   80               | DAND
+   81               | DOR
+
+   82 logic_unar_sign: NOT
+
+   83 assign_sign: LE
+   84            | GE
+   85            | EQ
+   86            | NE
+   87            | MULTASSIGN
+   88            | DIVASSIGN
+   89            | MODASSIGN
+   90            | PLUSASSIGN
+   91            | MINUSASSIGN
+   92            | DLTASSIGN
+   93            | DMTASSIGN
+   94            | ANDASSIGN
+   95            | XORASSIGN
+   96            | ORASSIGN
+   97            | ASSIGN
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+VOID (258) 13
+AUTO (259)
+BREAK (260) 46
+CASE (261)
+CHAR (262) 14
+CONST (263)
+CONTINUE (264) 45
+DEFAULT (265)
+DO (266) 39
+DOUBLE (267)
+ELSE (268) 25 26
+ENUM (269)
+EXTERN (270)
+FLOAT (271) 11
+FOR (272) 36
+GOTO (273)
+IF (274) 24
+INLINE (275)
+INT (276) 9
+LONG (277) 10
+REGISTER (278)
+RESTRICT (279)
+RETURN (280) 6
+SHORT (281) 12
+SIGNED (282)
+SIZEOF (283)
+STATIC (284)
+STRUCT (285)
+SWITCH (286)
+TYPEDEF (287)
+UNION (288)
+UNSIGNED (289)
+VOLATILE (290)
+WHILE (291) 38 39
+_ALIGNAS (292)
+_ALIGNOF (293)
+_ATOMIC (294)
+_BOOL (295)
+_COMPLEX (296)
+_GENERIC (297)
+_IMAGINARY (298)
+_NORETURN (299)
+_STATIC_ASSERT (300)
+_THREAD_LOCAL (301)
+IDENTIFIER (302) 8 40 41 47 48 58
+NUMBER (303) 51
+INCLUDE (304) 3
+LP (305) 5 24 31 36 38 39 44 47 48 64 65 66
+RP (306) 5 24 31 36 38 39 44 47 48 64 65 66
+COMMA (307) 48
+LETTICE (308)
+DLETTICE (309)
+LC (310) 5 19 24 26 36 38 39
+RC (311) 5 19 24 26 36 38 39
+LB (312)
+RB (313)
+DOT (314)
+AND (315) 48 77
+STAR (316) 59
+PLUS (317) 55 65
+MINUS (318) 56 66
+TILDA (319)
+NOT (320) 82
+DIV (321) 60
+MOD (322) 61
+LT (323) 75
+MT (324) 76
+XOR (325) 79
+OR (326) 78
+QUESTION (327)
+COLON (328)
+SEMICOLON (329) 6 16 36 39
+ASSIGN (330) 49 97
+DCOLON (331)
+ARROW (332)
+ICREMENT (333) 67
+DECREMENT (334) 68
+DLT (335)
+DMT (336)
+LE (337) 69 83
+GE (338) 70 84
+EQ (339) 71 85
+NE (340) 72 86
+DAND (341) 73 80
+DOR (342) 74 81
+MULTASSIGN (343) 87
+DIVASSIGN (344) 88
+MODASSIGN (345) 89
+PLUSASSIGN (346) 90
+MINUSASSIGN (347) 91
+DLTASSIGN (348) 92
+DMTASSIGN (349) 93
+ANDASSIGN (350) 94
+XORASSIGN (351) 95
+ORASSIGN (352) 96
+COMMENT (353)
+STR (354) 47 48 52
+CHARACTER (355) 53
+
+
+Nonterminals, with rules where they appear
+
+$accept (101)
+    on left: 0
+program (102)
+    on left: 1, on right: 0
+headers (103)
+    on left: 2 3 4, on right: 1 2
+main_function (104)
+    on left: 5, on right: 1
+return (105)
+    on left: 6 7, on right: 5
+main (106)
+    on left: 8, on right: 5
+datatype (107)
+    on left: 9 10 11 12 13 14, on right: 8 40
+body (108)
+    on left: 15 16 17 18 19 20, on right: 5 15 19 24 26 36 38 39
+op_if_else (109)
+    on left: 24, on right: 17 25
+@1 (110)
+    on left: 21, on right: 24
+@2 (111)
+    on left: 22, on right: 24
+@3 (112)
+    on left: 23, on right: 24
+else (113)
+    on left: 25 26 27, on right: 24
+condition (114)
+    on left: 28 29 30 31, on right: 24 29 30 31 36 38 39
+op_loop (115)
+    on left: 32 33 34, on right: 18
+for_loop (116)
+    on left: 36, on right: 32
+@4 (117)
+    on left: 35, on right: 36
+while_loop (118)
+    on left: 38, on right: 33
+@5 (119)
+    on left: 37, on right: 38
+do_while_loop (120)
+    on left: 39, on right: 34
+op_statement (121)
+    on left: 40 41 42 43 44 45 46 47 48, on right: 16 36 44
+init (122)
+    on left: 49 50, on right: 40
+value (123)
+    on left: 51 52 53, on right: 57
+statement (124)
+    on left: 54 55 56, on right: 6 28 36 41 42 43 49 55 56
+p_stetament (125)
+    on left: 57 58 59 60 61 62 63 64 65 66, on right: 54 59 60 61 62
+    63 64 65 66
+arithmetic_unar_sign (126)
+    on left: 67 68, on right: 42 43 62 63
+compare_bin_sign (127)
+    on left: 69 70 71 72 73 74 75 76, on right: 28
+logic_bin_sign (128)
+    on left: 77 78 79 80 81, on right: 29
+logic_unar_sign (129)
+    on left: 82, on right: 30
+assign_sign (130)
+    on left: 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97,
+    on right: 41
+
+
+state 0
+
+    0 $accept: . program $end
+
+    INCLUDE  shift, and go to state 1
+
+    INCLUDE   [reduce using rule 4 (headers)]
+    $default  reduce using rule 4 (headers)
+
+    program  go to state 2
+    headers  go to state 3
+
+
+state 1
+
+    3 headers: INCLUDE .
+
+    $default  reduce using rule 3 (headers)
+
+
+state 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    1 program: headers . main_function
+    2 headers: headers . headers
+
+    VOID     shift, and go to state 5
+    CHAR     shift, and go to state 6
+    FLOAT    shift, and go to state 7
+    INT      shift, and go to state 8
+    LONG     shift, and go to state 9
+    SHORT    shift, and go to state 10
+    INCLUDE  shift, and go to state 1
+
+    VOID     [reduce using rule 4 (headers)]
+    CHAR     [reduce using rule 4 (headers)]
+    FLOAT    [reduce using rule 4 (headers)]
+    INT      [reduce using rule 4 (headers)]
+    LONG     [reduce using rule 4 (headers)]
+    SHORT    [reduce using rule 4 (headers)]
+    INCLUDE  [reduce using rule 4 (headers)]
+
+    headers        go to state 11
+    main_function  go to state 12
+    main           go to state 13
+    datatype       go to state 14
+
+
+state 4
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 5
+
+   13 datatype: VOID .
+
+    $default  reduce using rule 13 (datatype)
+
+
+state 6
+
+   14 datatype: CHAR .
+
+    $default  reduce using rule 14 (datatype)
+
+
+state 7
+
+   11 datatype: FLOAT .
+
+    $default  reduce using rule 11 (datatype)
+
+
+state 8
+
+    9 datatype: INT .
+
+    $default  reduce using rule 9 (datatype)
+
+
+state 9
+
+   10 datatype: LONG .
+
+    $default  reduce using rule 10 (datatype)
+
+
+state 10
+
+   12 datatype: SHORT .
+
+    $default  reduce using rule 12 (datatype)
+
+
+state 11
+
+    2 headers: headers . headers
+    2        | headers headers .
+
+    INCLUDE  shift, and go to state 1
+
+    VOID      reduce using rule 2 (headers)
+    VOID      [reduce using rule 4 (headers)]
+    CHAR      reduce using rule 2 (headers)
+    CHAR      [reduce using rule 4 (headers)]
+    FLOAT     reduce using rule 2 (headers)
+    FLOAT     [reduce using rule 4 (headers)]
+    INT       reduce using rule 2 (headers)
+    INT       [reduce using rule 4 (headers)]
+    LONG      reduce using rule 2 (headers)
+    LONG      [reduce using rule 4 (headers)]
+    SHORT     reduce using rule 2 (headers)
+    SHORT     [reduce using rule 4 (headers)]
+    INCLUDE   [reduce using rule 2 (headers)]
+    INCLUDE   [reduce using rule 4 (headers)]
+    $default  reduce using rule 2 (headers)
+
+    headers  go to state 11
+
+
+state 12
+
+    1 program: headers main_function .
+
+    $default  reduce using rule 1 (program)
+
+
+state 13
+
+    5 main_function: main . LP RP LC body return RC
+
+    LP  shift, and go to state 15
+
+
+state 14
+
+    8 main: datatype . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 16
+
+
+state 15
+
+    5 main_function: main LP . RP LC body return RC
+
+    RP  shift, and go to state 17
+
+
+state 16
+
+    8 main: datatype IDENTIFIER .
+
+    $default  reduce using rule 8 (main)
+
+
+state 17
+
+    5 main_function: main LP RP . LC body return RC
+
+    LC  shift, and go to state 18
+
+
+state 18
+
+    5 main_function: main LP RP LC . body return RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 34
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 19
+
+   46 op_statement: BREAK .
+
+    $default  reduce using rule 46 (op_statement)
+
+
+state 20
+
+   45 op_statement: CONTINUE .
+
+    $default  reduce using rule 45 (op_statement)
+
+
+state 21
+
+   39 do_while_loop: DO . LC body RC WHILE LP condition RP SEMICOLON
+
+    LC  shift, and go to state 45
+
+
+state 22
+
+   36 for_loop: FOR . @4 LP op_statement SEMICOLON condition SEMICOLON statement RP LC body RC
+
+    $default  reduce using rule 35 (@4)
+
+    @4  go to state 46
+
+
+state 23
+
+   24 op_if_else: IF . @1 LP condition RP @2 LC body RC @3 else
+
+    $default  reduce using rule 21 (@1)
+
+    @1  go to state 47
+
+
+state 24
+
+   38 while_loop: WHILE . @5 LP condition RP LC body RC
+
+    $default  reduce using rule 37 (@5)
+
+    @5  go to state 48
+
+
+state 25
+
+   41 op_statement: IDENTIFIER . assign_sign statement
+   47             | IDENTIFIER . LP STR RP
+   48             | IDENTIFIER . LP STR COMMA AND IDENTIFIER RP
+   58 p_stetament: IDENTIFIER .
+
+    LP           shift, and go to state 49
+    ASSIGN       shift, and go to state 50
+    LE           shift, and go to state 51
+    GE           shift, and go to state 52
+    EQ           shift, and go to state 53
+    NE           shift, and go to state 54
+    MULTASSIGN   shift, and go to state 55
+    DIVASSIGN    shift, and go to state 56
+    MODASSIGN    shift, and go to state 57
+    PLUSASSIGN   shift, and go to state 58
+    MINUSASSIGN  shift, and go to state 59
+    DLTASSIGN    shift, and go to state 60
+    DMTASSIGN    shift, and go to state 61
+    ANDASSIGN    shift, and go to state 62
+    XORASSIGN    shift, and go to state 63
+    ORASSIGN     shift, and go to state 64
+
+    $default  reduce using rule 58 (p_stetament)
+
+    assign_sign  go to state 65
+
+
+state 26
+
+   51 value: NUMBER .
+
+    $default  reduce using rule 51 (value)
+
+
+state 27
+
+   44 op_statement: LP . op_statement RP
+   64 p_stetament: LP . p_stetament RP
+   65            | LP . p_stetament PLUS p_stetament RP
+   66            | LP . p_stetament MINUS p_stetament RP
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    FLOAT       shift, and go to state 7
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    datatype              go to state 33
+    op_statement          go to state 66
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 67
+    arithmetic_unar_sign  go to state 44
+
+
+state 28
+
+   19 body: LC . body RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 68
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 29
+
+   67 arithmetic_unar_sign: ICREMENT .
+
+    $default  reduce using rule 67 (arithmetic_unar_sign)
+
+
+state 30
+
+   68 arithmetic_unar_sign: DECREMENT .
+
+    $default  reduce using rule 68 (arithmetic_unar_sign)
+
+
+state 31
+
+   52 value: STR .
+
+    $default  reduce using rule 52 (value)
+
+
+state 32
+
+   53 value: CHARACTER .
+
+    $default  reduce using rule 53 (value)
+
+
+state 33
+
+   40 op_statement: datatype . IDENTIFIER init
+
+    IDENTIFIER  shift, and go to state 69
+
+
+state 34
+
+    5 main_function: main LP RP LC body . return RC
+   15 body: body . body
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    RETURN      shift, and go to state 70
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    RETURN      [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          reduce using rule 7 (return)
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 7 (return)
+
+    return                go to state 71
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 35
+
+   17 body: op_if_else .
+
+    $default  reduce using rule 17 (body)
+
+
+state 36
+
+   18 body: op_loop .
+
+    $default  reduce using rule 18 (body)
+
+
+state 37
+
+   32 op_loop: for_loop .
+
+    $default  reduce using rule 32 (op_loop)
+
+
+state 38
+
+   33 op_loop: while_loop .
+
+    $default  reduce using rule 33 (op_loop)
+
+
+state 39
+
+   34 op_loop: do_while_loop .
+
+    $default  reduce using rule 34 (op_loop)
+
+
+state 40
+
+   16 body: op_statement . SEMICOLON
+
+    SEMICOLON  shift, and go to state 73
+
+
+state 41
+
+   57 p_stetament: value .
+
+    $default  reduce using rule 57 (p_stetament)
+
+
+state 42
+
+   43 op_statement: statement . arithmetic_unar_sign
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS       shift, and go to state 74
+    MINUS      shift, and go to state 75
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    arithmetic_unar_sign  go to state 76
+
+
+state 43
+
+   54 statement: p_stetament .
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    ICREMENT   [reduce using rule 54 (statement)]
+    DECREMENT  [reduce using rule 54 (statement)]
+    $default   reduce using rule 54 (statement)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 44
+
+   42 op_statement: arithmetic_unar_sign . statement
+   62 p_stetament: arithmetic_unar_sign . p_stetament
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 83
+    p_stetament           go to state 84
+    arithmetic_unar_sign  go to state 85
+
+
+state 45
+
+   39 do_while_loop: DO LC . body RC WHILE LP condition RP SEMICOLON
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 86
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 46
+
+   36 for_loop: FOR @4 . LP op_statement SEMICOLON condition SEMICOLON statement RP LC body RC
+
+    LP  shift, and go to state 87
+
+
+state 47
+
+   24 op_if_else: IF @1 . LP condition RP @2 LC body RC @3 else
+
+    LP  shift, and go to state 88
+
+
+state 48
+
+   38 while_loop: WHILE @5 . LP condition RP LC body RC
+
+    LP  shift, and go to state 89
+
+
+state 49
+
+   47 op_statement: IDENTIFIER LP . STR RP
+   48             | IDENTIFIER LP . STR COMMA AND IDENTIFIER RP
+
+    STR  shift, and go to state 90
+
+
+state 50
+
+   97 assign_sign: ASSIGN .
+
+    $default  reduce using rule 97 (assign_sign)
+
+
+state 51
+
+   83 assign_sign: LE .
+
+    $default  reduce using rule 83 (assign_sign)
+
+
+state 52
+
+   84 assign_sign: GE .
+
+    $default  reduce using rule 84 (assign_sign)
+
+
+state 53
+
+   85 assign_sign: EQ .
+
+    $default  reduce using rule 85 (assign_sign)
+
+
+state 54
+
+   86 assign_sign: NE .
+
+    $default  reduce using rule 86 (assign_sign)
+
+
+state 55
+
+   87 assign_sign: MULTASSIGN .
+
+    $default  reduce using rule 87 (assign_sign)
+
+
+state 56
+
+   88 assign_sign: DIVASSIGN .
+
+    $default  reduce using rule 88 (assign_sign)
+
+
+state 57
+
+   89 assign_sign: MODASSIGN .
+
+    $default  reduce using rule 89 (assign_sign)
+
+
+state 58
+
+   90 assign_sign: PLUSASSIGN .
+
+    $default  reduce using rule 90 (assign_sign)
+
+
+state 59
+
+   91 assign_sign: MINUSASSIGN .
+
+    $default  reduce using rule 91 (assign_sign)
+
+
+state 60
+
+   92 assign_sign: DLTASSIGN .
+
+    $default  reduce using rule 92 (assign_sign)
+
+
+state 61
+
+   93 assign_sign: DMTASSIGN .
+
+    $default  reduce using rule 93 (assign_sign)
+
+
+state 62
+
+   94 assign_sign: ANDASSIGN .
+
+    $default  reduce using rule 94 (assign_sign)
+
+
+state 63
+
+   95 assign_sign: XORASSIGN .
+
+    $default  reduce using rule 95 (assign_sign)
+
+
+state 64
+
+   96 assign_sign: ORASSIGN .
+
+    $default  reduce using rule 96 (assign_sign)
+
+
+state 65
+
+   41 op_statement: IDENTIFIER assign_sign . statement
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 91
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 66
+
+   44 op_statement: LP op_statement . RP
+
+    RP  shift, and go to state 92
+
+
+state 67
+
+   54 statement: p_stetament .
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+   64            | LP p_stetament . RP
+   65            | LP p_stetament . PLUS p_stetament RP
+   66            | LP p_stetament . MINUS p_stetament RP
+
+    RP         shift, and go to state 93
+    STAR       shift, and go to state 77
+    PLUS       shift, and go to state 94
+    MINUS      shift, and go to state 95
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    PLUS       [reduce using rule 54 (statement)]
+    MINUS      [reduce using rule 54 (statement)]
+    ICREMENT   [reduce using rule 54 (statement)]
+    DECREMENT  [reduce using rule 54 (statement)]
+    $default   reduce using rule 54 (statement)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 68
+
+   15 body: body . body
+   19     | LC body . RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 96
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 69
+
+   40 op_statement: datatype IDENTIFIER . init
+
+    ASSIGN  shift, and go to state 97
+
+    $default  reduce using rule 50 (init)
+
+    init  go to state 98
+
+
+state 70
+
+    6 return: RETURN . statement SEMICOLON
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 99
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 71
+
+    5 main_function: main LP RP LC body return . RC
+
+    RC  shift, and go to state 100
+
+
+state 72
+
+   15 body: body . body
+   15     | body body .
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 15 (body)]
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 15 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 15 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 15 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 15 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 15 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 15 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 15 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 15 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 15 (body)]
+    LONG        [reduce using rule 20 (body)]
+    RETURN      reduce using rule 15 (body)
+    RETURN      [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 15 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 15 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 15 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 15 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 15 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 15 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          reduce using rule 15 (body)
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 15 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 15 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 15 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 15 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 15 (body)
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 73
+
+   16 body: op_statement SEMICOLON .
+
+    $default  reduce using rule 16 (body)
+
+
+state 74
+
+   55 statement: statement PLUS . statement
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 101
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 75
+
+   56 statement: statement MINUS . statement
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 102
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 76
+
+   43 op_statement: statement arithmetic_unar_sign .
+
+    $default  reduce using rule 43 (op_statement)
+
+
+state 77
+
+   59 p_stetament: p_stetament STAR . p_stetament
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 103
+    arithmetic_unar_sign  go to state 85
+
+
+state 78
+
+   60 p_stetament: p_stetament DIV . p_stetament
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 104
+    arithmetic_unar_sign  go to state 85
+
+
+state 79
+
+   61 p_stetament: p_stetament MOD . p_stetament
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 105
+    arithmetic_unar_sign  go to state 85
+
+
+state 80
+
+   63 p_stetament: p_stetament arithmetic_unar_sign .
+
+    $default  reduce using rule 63 (p_stetament)
+
+
+state 81
+
+   58 p_stetament: IDENTIFIER .
+
+    $default  reduce using rule 58 (p_stetament)
+
+
+state 82
+
+   64 p_stetament: LP . p_stetament RP
+   65            | LP . p_stetament PLUS p_stetament RP
+   66            | LP . p_stetament MINUS p_stetament RP
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 106
+    arithmetic_unar_sign  go to state 85
+
+
+state 83
+
+   42 op_statement: arithmetic_unar_sign statement .
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    $default  reduce using rule 42 (op_statement)
+
+
+state 84
+
+   54 statement: p_stetament .
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   62            | arithmetic_unar_sign p_stetament .
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    RP         reduce using rule 54 (statement)
+    RP         [reduce using rule 62 (p_stetament)]
+    STAR       [reduce using rule 62 (p_stetament)]
+    PLUS       reduce using rule 54 (statement)
+    PLUS       [reduce using rule 62 (p_stetament)]
+    MINUS      reduce using rule 54 (statement)
+    MINUS      [reduce using rule 62 (p_stetament)]
+    DIV        [reduce using rule 62 (p_stetament)]
+    MOD        [reduce using rule 62 (p_stetament)]
+    ICREMENT   [reduce using rule 62 (p_stetament)]
+    DECREMENT  [reduce using rule 62 (p_stetament)]
+    $default   reduce using rule 54 (statement)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 85
+
+   62 p_stetament: arithmetic_unar_sign . p_stetament
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 107
+    arithmetic_unar_sign  go to state 85
+
+
+state 86
+
+   15 body: body . body
+   39 do_while_loop: DO LC body . RC WHILE LP condition RP SEMICOLON
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 108
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 87
+
+   36 for_loop: FOR @4 LP . op_statement SEMICOLON condition SEMICOLON statement RP LC body RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    FLOAT       shift, and go to state 7
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    datatype              go to state 33
+    op_statement          go to state 109
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 88
+
+   24 op_if_else: IF @1 LP . condition RP @2 LC body RC @3 else
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 112
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 89
+
+   38 while_loop: WHILE @5 LP . condition RP LC body RC
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 115
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 90
+
+   47 op_statement: IDENTIFIER LP STR . RP
+   48             | IDENTIFIER LP STR . COMMA AND IDENTIFIER RP
+
+    RP     shift, and go to state 116
+    COMMA  shift, and go to state 117
+
+
+state 91
+
+   41 op_statement: IDENTIFIER assign_sign statement .
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    $default  reduce using rule 41 (op_statement)
+
+
+state 92
+
+   44 op_statement: LP op_statement RP .
+
+    $default  reduce using rule 44 (op_statement)
+
+
+state 93
+
+   64 p_stetament: LP p_stetament RP .
+
+    $default  reduce using rule 64 (p_stetament)
+
+
+state 94
+
+   65 p_stetament: LP p_stetament PLUS . p_stetament RP
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 118
+    arithmetic_unar_sign  go to state 85
+
+
+state 95
+
+   66 p_stetament: LP p_stetament MINUS . p_stetament RP
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    p_stetament           go to state 119
+    arithmetic_unar_sign  go to state 85
+
+
+state 96
+
+   19 body: LC body RC .
+
+    $default  reduce using rule 19 (body)
+
+
+state 97
+
+   49 init: ASSIGN . statement
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 120
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 98
+
+   40 op_statement: datatype IDENTIFIER init .
+
+    $default  reduce using rule 40 (op_statement)
+
+
+state 99
+
+    6 return: RETURN statement . SEMICOLON
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS       shift, and go to state 74
+    MINUS      shift, and go to state 75
+    SEMICOLON  shift, and go to state 121
+
+
+state 100
+
+    5 main_function: main LP RP LC body return RC .
+
+    $default  reduce using rule 5 (main_function)
+
+
+state 101
+
+   55 statement: statement . PLUS statement
+   55          | statement PLUS statement .
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    PLUS      [reduce using rule 55 (statement)]
+    MINUS     [reduce using rule 55 (statement)]
+    $default  reduce using rule 55 (statement)
+
+
+state 102
+
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+   56          | statement MINUS statement .
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    PLUS      [reduce using rule 56 (statement)]
+    MINUS     [reduce using rule 56 (statement)]
+    $default  reduce using rule 56 (statement)
+
+
+state 103
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   59            | p_stetament STAR p_stetament .
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    STAR       [reduce using rule 59 (p_stetament)]
+    DIV        [reduce using rule 59 (p_stetament)]
+    MOD        [reduce using rule 59 (p_stetament)]
+    ICREMENT   [reduce using rule 59 (p_stetament)]
+    DECREMENT  [reduce using rule 59 (p_stetament)]
+    $default   reduce using rule 59 (p_stetament)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 104
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   60            | p_stetament DIV p_stetament .
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    STAR       [reduce using rule 60 (p_stetament)]
+    DIV        [reduce using rule 60 (p_stetament)]
+    MOD        [reduce using rule 60 (p_stetament)]
+    ICREMENT   [reduce using rule 60 (p_stetament)]
+    DECREMENT  [reduce using rule 60 (p_stetament)]
+    $default   reduce using rule 60 (p_stetament)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 105
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   61            | p_stetament MOD p_stetament .
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    STAR       [reduce using rule 61 (p_stetament)]
+    DIV        [reduce using rule 61 (p_stetament)]
+    MOD        [reduce using rule 61 (p_stetament)]
+    ICREMENT   [reduce using rule 61 (p_stetament)]
+    DECREMENT  [reduce using rule 61 (p_stetament)]
+    $default   reduce using rule 61 (p_stetament)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 106
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+   64            | LP p_stetament . RP
+   65            | LP p_stetament . PLUS p_stetament RP
+   66            | LP p_stetament . MINUS p_stetament RP
+
+    RP         shift, and go to state 93
+    STAR       shift, and go to state 77
+    PLUS       shift, and go to state 94
+    MINUS      shift, and go to state 95
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 107
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   62            | arithmetic_unar_sign p_stetament .
+   63            | p_stetament . arithmetic_unar_sign
+
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    STAR       [reduce using rule 62 (p_stetament)]
+    DIV        [reduce using rule 62 (p_stetament)]
+    MOD        [reduce using rule 62 (p_stetament)]
+    ICREMENT   [reduce using rule 62 (p_stetament)]
+    DECREMENT  [reduce using rule 62 (p_stetament)]
+    $default   reduce using rule 62 (p_stetament)
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 108
+
+   39 do_while_loop: DO LC body RC . WHILE LP condition RP SEMICOLON
+
+    WHILE  shift, and go to state 122
+
+
+state 109
+
+   36 for_loop: FOR @4 LP op_statement . SEMICOLON condition SEMICOLON statement RP LC body RC
+
+    SEMICOLON  shift, and go to state 123
+
+
+state 110
+
+   31 condition: LP . condition RP
+   64 p_stetament: LP . p_stetament RP
+   65            | LP . p_stetament PLUS p_stetament RP
+   66            | LP . p_stetament MINUS p_stetament RP
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 124
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 67
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 111
+
+   82 logic_unar_sign: NOT .
+
+    $default  reduce using rule 82 (logic_unar_sign)
+
+
+state 112
+
+   24 op_if_else: IF @1 LP condition . RP @2 LC body RC @3 else
+   29 condition: condition . logic_bin_sign condition
+
+    RP    shift, and go to state 125
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    logic_bin_sign  go to state 131
+
+
+state 113
+
+   28 condition: statement . compare_bin_sign statement
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+    LT     shift, and go to state 132
+    MT     shift, and go to state 133
+    LE     shift, and go to state 134
+    GE     shift, and go to state 135
+    EQ     shift, and go to state 136
+    NE     shift, and go to state 137
+    DAND   shift, and go to state 138
+    DOR    shift, and go to state 139
+
+    compare_bin_sign  go to state 140
+
+
+state 114
+
+   30 condition: logic_unar_sign . condition
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 141
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 115
+
+   29 condition: condition . logic_bin_sign condition
+   38 while_loop: WHILE @5 LP condition . RP LC body RC
+
+    RP    shift, and go to state 142
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    logic_bin_sign  go to state 131
+
+
+state 116
+
+   47 op_statement: IDENTIFIER LP STR RP .
+
+    $default  reduce using rule 47 (op_statement)
+
+
+state 117
+
+   48 op_statement: IDENTIFIER LP STR COMMA . AND IDENTIFIER RP
+
+    AND  shift, and go to state 143
+
+
+state 118
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+   65            | LP p_stetament PLUS p_stetament . RP
+
+    RP         shift, and go to state 144
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 119
+
+   59 p_stetament: p_stetament . STAR p_stetament
+   60            | p_stetament . DIV p_stetament
+   61            | p_stetament . MOD p_stetament
+   63            | p_stetament . arithmetic_unar_sign
+   66            | LP p_stetament MINUS p_stetament . RP
+
+    RP         shift, and go to state 145
+    STAR       shift, and go to state 77
+    DIV        shift, and go to state 78
+    MOD        shift, and go to state 79
+    ICREMENT   shift, and go to state 29
+    DECREMENT  shift, and go to state 30
+
+    arithmetic_unar_sign  go to state 80
+
+
+state 120
+
+   49 init: ASSIGN statement .
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    $default  reduce using rule 49 (init)
+
+
+state 121
+
+    6 return: RETURN statement SEMICOLON .
+
+    $default  reduce using rule 6 (return)
+
+
+state 122
+
+   39 do_while_loop: DO LC body RC WHILE . LP condition RP SEMICOLON
+
+    LP  shift, and go to state 146
+
+
+state 123
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON . condition SEMICOLON statement RP LC body RC
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 147
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 124
+
+   29 condition: condition . logic_bin_sign condition
+   31          | LP condition . RP
+
+    RP    shift, and go to state 148
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    logic_bin_sign  go to state 131
+
+
+state 125
+
+   24 op_if_else: IF @1 LP condition RP . @2 LC body RC @3 else
+
+    $default  reduce using rule 22 (@2)
+
+    @2  go to state 149
+
+
+state 126
+
+   77 logic_bin_sign: AND .
+
+    $default  reduce using rule 77 (logic_bin_sign)
+
+
+state 127
+
+   79 logic_bin_sign: XOR .
+
+    $default  reduce using rule 79 (logic_bin_sign)
+
+
+state 128
+
+   78 logic_bin_sign: OR .
+
+    $default  reduce using rule 78 (logic_bin_sign)
+
+
+state 129
+
+   80 logic_bin_sign: DAND .
+
+    $default  reduce using rule 80 (logic_bin_sign)
+
+
+state 130
+
+   81 logic_bin_sign: DOR .
+
+    $default  reduce using rule 81 (logic_bin_sign)
+
+
+state 131
+
+   29 condition: condition logic_bin_sign . condition
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 150
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 132
+
+   75 compare_bin_sign: LT .
+
+    $default  reduce using rule 75 (compare_bin_sign)
+
+
+state 133
+
+   76 compare_bin_sign: MT .
+
+    $default  reduce using rule 76 (compare_bin_sign)
+
+
+state 134
+
+   69 compare_bin_sign: LE .
+
+    $default  reduce using rule 69 (compare_bin_sign)
+
+
+state 135
+
+   70 compare_bin_sign: GE .
+
+    $default  reduce using rule 70 (compare_bin_sign)
+
+
+state 136
+
+   71 compare_bin_sign: EQ .
+
+    $default  reduce using rule 71 (compare_bin_sign)
+
+
+state 137
+
+   72 compare_bin_sign: NE .
+
+    $default  reduce using rule 72 (compare_bin_sign)
+
+
+state 138
+
+   73 compare_bin_sign: DAND .
+
+    $default  reduce using rule 73 (compare_bin_sign)
+
+
+state 139
+
+   74 compare_bin_sign: DOR .
+
+    $default  reduce using rule 74 (compare_bin_sign)
+
+
+state 140
+
+   28 condition: statement compare_bin_sign . statement
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 151
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 141
+
+   29 condition: condition . logic_bin_sign condition
+   30          | logic_unar_sign condition .
+
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    AND       [reduce using rule 30 (condition)]
+    XOR       [reduce using rule 30 (condition)]
+    OR        [reduce using rule 30 (condition)]
+    DAND      [reduce using rule 30 (condition)]
+    DOR       [reduce using rule 30 (condition)]
+    $default  reduce using rule 30 (condition)
+
+    logic_bin_sign  go to state 131
+
+
+state 142
+
+   38 while_loop: WHILE @5 LP condition RP . LC body RC
+
+    LC  shift, and go to state 152
+
+
+state 143
+
+   48 op_statement: IDENTIFIER LP STR COMMA AND . IDENTIFIER RP
+
+    IDENTIFIER  shift, and go to state 153
+
+
+state 144
+
+   65 p_stetament: LP p_stetament PLUS p_stetament RP .
+
+    $default  reduce using rule 65 (p_stetament)
+
+
+state 145
+
+   66 p_stetament: LP p_stetament MINUS p_stetament RP .
+
+    $default  reduce using rule 66 (p_stetament)
+
+
+state 146
+
+   39 do_while_loop: DO LC body RC WHILE LP . condition RP SEMICOLON
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 110
+    NOT         shift, and go to state 111
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    condition             go to state 154
+    value                 go to state 41
+    statement             go to state 113
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+    logic_unar_sign       go to state 114
+
+
+state 147
+
+   29 condition: condition . logic_bin_sign condition
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition . SEMICOLON statement RP LC body RC
+
+    AND        shift, and go to state 126
+    XOR        shift, and go to state 127
+    OR         shift, and go to state 128
+    SEMICOLON  shift, and go to state 155
+    DAND       shift, and go to state 129
+    DOR        shift, and go to state 130
+
+    logic_bin_sign  go to state 131
+
+
+state 148
+
+   31 condition: LP condition RP .
+
+    $default  reduce using rule 31 (condition)
+
+
+state 149
+
+   24 op_if_else: IF @1 LP condition RP @2 . LC body RC @3 else
+
+    LC  shift, and go to state 156
+
+
+state 150
+
+   29 condition: condition . logic_bin_sign condition
+   29          | condition logic_bin_sign condition .
+
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    AND       [reduce using rule 29 (condition)]
+    XOR       [reduce using rule 29 (condition)]
+    OR        [reduce using rule 29 (condition)]
+    DAND      [reduce using rule 29 (condition)]
+    DOR       [reduce using rule 29 (condition)]
+    $default  reduce using rule 29 (condition)
+
+    logic_bin_sign  go to state 131
+
+
+state 151
+
+   28 condition: statement compare_bin_sign statement .
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+    $default  reduce using rule 28 (condition)
+
+
+state 152
+
+   38 while_loop: WHILE @5 LP condition RP LC . body RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 157
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 153
+
+   48 op_statement: IDENTIFIER LP STR COMMA AND IDENTIFIER . RP
+
+    RP  shift, and go to state 158
+
+
+state 154
+
+   29 condition: condition . logic_bin_sign condition
+   39 do_while_loop: DO LC body RC WHILE LP condition . RP SEMICOLON
+
+    RP    shift, and go to state 159
+    AND   shift, and go to state 126
+    XOR   shift, and go to state 127
+    OR    shift, and go to state 128
+    DAND  shift, and go to state 129
+    DOR   shift, and go to state 130
+
+    logic_bin_sign  go to state 131
+
+
+state 155
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON . statement RP LC body RC
+
+    IDENTIFIER  shift, and go to state 81
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 82
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    value                 go to state 41
+    statement             go to state 160
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 85
+
+
+state 156
+
+   24 op_if_else: IF @1 LP condition RP @2 LC . body RC @3 else
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 161
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 157
+
+   15 body: body . body
+   38 while_loop: WHILE @5 LP condition RP LC body . RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 162
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 158
+
+   48 op_statement: IDENTIFIER LP STR COMMA AND IDENTIFIER RP .
+
+    $default  reduce using rule 48 (op_statement)
+
+
+state 159
+
+   39 do_while_loop: DO LC body RC WHILE LP condition RP . SEMICOLON
+
+    SEMICOLON  shift, and go to state 163
+
+
+state 160
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement . RP LC body RC
+   55 statement: statement . PLUS statement
+   56          | statement . MINUS statement
+
+    RP     shift, and go to state 164
+    PLUS   shift, and go to state 74
+    MINUS  shift, and go to state 75
+
+
+state 161
+
+   15 body: body . body
+   24 op_if_else: IF @1 LP condition RP @2 LC body . RC @3 else
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 165
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 162
+
+   38 while_loop: WHILE @5 LP condition RP LC body RC .
+
+    $default  reduce using rule 38 (while_loop)
+
+
+state 163
+
+   39 do_while_loop: DO LC body RC WHILE LP condition RP SEMICOLON .
+
+    $default  reduce using rule 39 (do_while_loop)
+
+
+state 164
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement RP . LC body RC
+
+    LC  shift, and go to state 166
+
+
+state 165
+
+   24 op_if_else: IF @1 LP condition RP @2 LC body RC . @3 else
+
+    $default  reduce using rule 23 (@3)
+
+    @3  go to state 167
+
+
+state 166
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement RP LC . body RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 168
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 167
+
+   24 op_if_else: IF @1 LP condition RP @2 LC body RC @3 . else
+
+    ELSE  shift, and go to state 169
+
+    $default  reduce using rule 27 (else)
+
+    else  go to state 170
+
+
+state 168
+
+   15 body: body . body
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement RP LC body . RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 171
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 169
+
+   25 else: ELSE . op_if_else
+   26     | ELSE . LC body RC
+
+    IF  shift, and go to state 23
+    LC  shift, and go to state 172
+
+    op_if_else  go to state 173
+
+
+state 170
+
+   24 op_if_else: IF @1 LP condition RP @2 LC body RC @3 else .
+
+    $default  reduce using rule 24 (op_if_else)
+
+
+state 171
+
+   36 for_loop: FOR @4 LP op_statement SEMICOLON condition SEMICOLON statement RP LC body RC .
+
+    $default  reduce using rule 36 (for_loop)
+
+
+state 172
+
+   26 else: ELSE LC . body RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+    $default    reduce using rule 20 (body)
+
+    datatype              go to state 33
+    body                  go to state 174
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 173
+
+   25 else: ELSE op_if_else .
+
+    $default  reduce using rule 25 (else)
+
+
+state 174
+
+   15 body: body . body
+   26 else: ELSE LC body . RC
+
+    VOID        shift, and go to state 5
+    BREAK       shift, and go to state 19
+    CHAR        shift, and go to state 6
+    CONTINUE    shift, and go to state 20
+    DO          shift, and go to state 21
+    FLOAT       shift, and go to state 7
+    FOR         shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 8
+    LONG        shift, and go to state 9
+    SHORT       shift, and go to state 10
+    WHILE       shift, and go to state 24
+    IDENTIFIER  shift, and go to state 25
+    NUMBER      shift, and go to state 26
+    LP          shift, and go to state 27
+    LC          shift, and go to state 28
+    RC          shift, and go to state 175
+    ICREMENT    shift, and go to state 29
+    DECREMENT   shift, and go to state 30
+    STR         shift, and go to state 31
+    CHARACTER   shift, and go to state 32
+
+    VOID        [reduce using rule 20 (body)]
+    BREAK       [reduce using rule 20 (body)]
+    CHAR        [reduce using rule 20 (body)]
+    CONTINUE    [reduce using rule 20 (body)]
+    DO          [reduce using rule 20 (body)]
+    FLOAT       [reduce using rule 20 (body)]
+    FOR         [reduce using rule 20 (body)]
+    IF          [reduce using rule 20 (body)]
+    INT         [reduce using rule 20 (body)]
+    LONG        [reduce using rule 20 (body)]
+    SHORT       [reduce using rule 20 (body)]
+    WHILE       [reduce using rule 20 (body)]
+    IDENTIFIER  [reduce using rule 20 (body)]
+    NUMBER      [reduce using rule 20 (body)]
+    LP          [reduce using rule 20 (body)]
+    LC          [reduce using rule 20 (body)]
+    RC          [reduce using rule 20 (body)]
+    ICREMENT    [reduce using rule 20 (body)]
+    DECREMENT   [reduce using rule 20 (body)]
+    STR         [reduce using rule 20 (body)]
+    CHARACTER   [reduce using rule 20 (body)]
+
+    datatype              go to state 33
+    body                  go to state 72
+    op_if_else            go to state 35
+    op_loop               go to state 36
+    for_loop              go to state 37
+    while_loop            go to state 38
+    do_while_loop         go to state 39
+    op_statement          go to state 40
+    value                 go to state 41
+    statement             go to state 42
+    p_stetament           go to state 43
+    arithmetic_unar_sign  go to state 44
+
+
+state 175
+
+   26 else: ELSE LC body RC .
+
+    $default  reduce using rule 26 (else)

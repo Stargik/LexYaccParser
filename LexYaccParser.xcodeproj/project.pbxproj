@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D86A219F2AF1321600C25D09 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = D86A219E2AF1321600C25D09 /* main.c */; };
+		D86A21A82AF1350B00C25D09 /* cparser.l in Sources */ = {isa = PBXBuildFile; fileRef = D86A21A72AF1350B00C25D09 /* cparser.l */; };
+		D86A21AA2AF13FF500C25D09 /* cparser.y in Sources */ = {isa = PBXBuildFile; fileRef = D86A21A92AF13FF500C25D09 /* cparser.y */; };
+		D883B3AC2AF2414400BA2F62 /* cparcer2.y in Sources */ = {isa = PBXBuildFile; fileRef = D883B3AB2AF2414300BA2F62 /* cparcer2.y */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		D86A219B2AF1321600C25D09 /* LexYaccParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LexYaccParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86A219E2AF1321600C25D09 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		D86A21A72AF1350B00C25D09 /* cparser.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = cparser.l; sourceTree = "<group>"; };
+		D86A21A92AF13FF500C25D09 /* cparser.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = cparser.y; sourceTree = "<group>"; };
+		D883B3AB2AF2414300BA2F62 /* cparcer2.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = cparcer2.y; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				D86A219E2AF1321600C25D09 /* main.c */,
+				D86A21A72AF1350B00C25D09 /* cparser.l */,
+				D86A21A92AF13FF500C25D09 /* cparser.y */,
+				D883B3AB2AF2414300BA2F62 /* cparcer2.y */,
 			);
 			path = LexYaccParser;
 			sourceTree = "<group>";
@@ -119,7 +128,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D86A21AA2AF13FF500C25D09 /* cparser.y in Sources */,
 				D86A219F2AF1321600C25D09 /* main.c in Sources */,
+				D86A21A82AF1350B00C25D09 /* cparser.l in Sources */,
+				D883B3AC2AF2414400BA2F62 /* cparcer2.y in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
