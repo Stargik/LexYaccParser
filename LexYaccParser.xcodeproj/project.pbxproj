@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8444ED42AF403B200F7099F /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = D8444ED32AF403B200F7099F /* cJSON.c */; };
 		D86A219F2AF1321600C25D09 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = D86A219E2AF1321600C25D09 /* main.c */; };
 		D86A21A82AF1350B00C25D09 /* cparser.l in Sources */ = {isa = PBXBuildFile; fileRef = D86A21A72AF1350B00C25D09 /* cparser.l */; };
 		D86A21AA2AF13FF500C25D09 /* cparser.y in Sources */ = {isa = PBXBuildFile; fileRef = D86A21A92AF13FF500C25D09 /* cparser.y */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D8444ED22AF403B200F7099F /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		D8444ED32AF403B200F7099F /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
 		D86A219B2AF1321600C25D09 /* LexYaccParser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LexYaccParser; sourceTree = BUILT_PRODUCTS_DIR; };
 		D86A219E2AF1321600C25D09 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		D86A21A72AF1350B00C25D09 /* cparser.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = cparser.l; sourceTree = "<group>"; };
@@ -63,6 +66,8 @@
 		D86A219D2AF1321600C25D09 /* LexYaccParser */ = {
 			isa = PBXGroup;
 			children = (
+				D8444ED32AF403B200F7099F /* cJSON.c */,
+				D8444ED22AF403B200F7099F /* cJSON.h */,
 				D86A219E2AF1321600C25D09 /* main.c */,
 				D86A21A72AF1350B00C25D09 /* cparser.l */,
 				D86A21A92AF13FF500C25D09 /* cparser.y */,
@@ -131,6 +136,7 @@
 				D86A21AA2AF13FF500C25D09 /* cparser.y in Sources */,
 				D86A219F2AF1321600C25D09 /* main.c in Sources */,
 				D86A21A82AF1350B00C25D09 /* cparser.l in Sources */,
+				D8444ED42AF403B200F7099F /* cJSON.c in Sources */,
 				D883B3AC2AF2414400BA2F62 /* cparcer2.y in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

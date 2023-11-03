@@ -1,0 +1,218 @@
+{
+	"name":	"program",
+	"children":	[{
+			"name":	"headers",
+			"children":	[{
+					"name":	"headers",
+					"children":	[{
+							"name":	"#include<stdio.h>"
+						}]
+				}, {
+					"name":	"headers",
+					"children":	[{
+							"name":	"#include<string.h>"
+						}]
+				}]
+		}, {
+			"name":	"main_function",
+			"children":	[{
+					"name":	"main",
+					"children":	[{
+							"name":	"datatype",
+							"children":	[{
+									"name":	"int"
+								}]
+						}, {
+							"name":	"main"
+						}]
+				}, {
+					"name":	"("
+				}, {
+					"name":	")"
+				}, {
+					"name":	"{"
+				}, {
+					"name":	"body",
+					"children":	[{
+							"name":	"body",
+							"children":	[{
+									"name":	"op_statement",
+									"children":	[{
+											"name":	"datatype",
+											"children":	[{
+													"name":	"int"
+												}]
+										}, {
+											"name":	"x"
+										}, {
+											"name":	"init",
+											"children":	[{
+													"name":	"="
+												}, {
+													"name":	"statement",
+													"children":	[{
+															"name":	"p_stetament",
+															"children":	[{
+																	"name":	"value",
+																	"children":	[{
+																			"name":	"4"
+																		}]
+																}]
+														}]
+												}]
+										}]
+								}, {
+									"name":	";"
+								}]
+						}, {
+							"name":	"body",
+							"children":	[{
+									"name":	"body",
+									"children":	[{
+											"name":	"op_statement",
+											"children":	[{
+													"name":	"datatype",
+													"children":	[{
+															"name":	"int"
+														}]
+												}, {
+													"name":	"y"
+												}, {
+													"name":	"init",
+													"children":	[{
+															"name":	"="
+														}, {
+															"name":	"statement",
+															"children":	[{
+																	"name":	"p_stetament",
+																	"children":	[{
+																			"name":	"value",
+																			"children":	[{
+																					"name":	"5"
+																				}]
+																		}]
+																}]
+														}]
+												}]
+										}, {
+											"name":	";"
+										}]
+								}, {
+									"name":	"body",
+									"children":	[{
+											"name":	"body",
+											"children":	[{
+													"name":	"op_statement",
+													"children":	[{
+															"name":	"datatype",
+															"children":	[{
+																	"name":	"int"
+																}]
+														}, {
+															"name":	"z"
+														}, {
+															"name":	"init",
+															"children":	[{
+																	"name":	"="
+																}, {
+																	"name":	"statement",
+																	"children":	[{
+																			"name":	"p_stetament",
+																			"children":	[{
+																					"name":	"value",
+																					"children":	[{
+																							"name":	"10"
+																						}]
+																				}]
+																		}]
+																}]
+														}]
+												}, {
+													"name":	";"
+												}]
+										}, {
+											"name":	"body",
+											"children":	[{
+													"name":	"op_statement",
+													"children":	[{
+															"name":	"x"
+														}, {
+															"name":	"assign_sign",
+															"children":	[{
+																	"name":	"="
+																}]
+														}, {
+															"name":	"statement",
+															"children":	[{
+																	"name":	"statement",
+																	"children":	[{
+																			"name":	"p_stetament",
+																			"children":	[{
+																					"name":	"p_stetament",
+																					"children":	[{
+																							"name":	"y"
+																						}]
+																				}, {
+																					"name":	"*"
+																				}, {
+																					"name":	"p_stetament",
+																					"children":	[{
+																							"name":	"z"
+																						}]
+																				}]
+																		}]
+																}, {
+																	"name":	"-"
+																}, {
+																	"name":	"statement",
+																	"children":	[{
+																			"name":	"p_stetament",
+																			"children":	[{
+																					"name":	"("
+																				}, {
+																					"name":	"p_stetament",
+																					"children":	[{
+																							"name":	"x"
+																						}]
+																				}, {
+																					"name":	"p_stetament",
+																					"children":	[{
+																							"name":	"x"
+																						}]
+																				}, {
+																					"name":	"p_stetament",
+																					"children":	[{
+																							"name":	"y"
+																						}]
+																				}, {
+																					"name":	")"
+																				}]
+																		}]
+																}]
+														}]
+												}, {
+													"name":	";"
+												}]
+										}]
+								}]
+						}]
+				}, {
+					"name":	"return",
+					"children":	[{
+							"name":	"return"
+						}, {
+							"name":	"statement",
+							"children":	[{
+									"name":	"p_stetament",
+									"children":	[{
+											"name":	"x"
+										}]
+								}]
+						}, {
+							"name":	";"
+						}]
+				}, {
+					"name":	"}"
+				}]
+		}]
+}
